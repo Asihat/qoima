@@ -17,19 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/registeruser', 'UserController@register');
-Route::post('/login', 'UserController@login');
-Route::post('/forgotpassword', 'UserController@forgotpassword');
-Route::get('/userinfo', 'UserController@userinfo');
-Route::post('/updateuser', 'UserController@updateuser');
-Route::post('/changepassword', 'UserController@changepassword');
-Route::post('/changeaddress', 'UserController@changeaddress');
+Route::post('/registeruser', 'UserController@register'); // TODO done
+Route::post('/login', 'UserController@login'); // TODO done
+Route::post('/forgotpassword', 'UserController@forgotpassword'); // TODO
+Route::post('/userinfo', 'UserController@userinfo'); // TODO done
+Route::post('/updateuser', 'UserController@updateuser'); // TODO  done
+Route::post('/changepassword', 'UserController@changepassword'); // TODO done
+Route::post('/changeaddress', 'UserController@changeaddress'); // TODO
 
-Route::get('/listofitems', 'ItemController@listofitems');
-Route::post('/bringitems', 'ItemController@bringitems');
+Route::post('/listofitems', 'ItemController@listofitems'); // TODO done
+Route::post('/bringitems', 'ItemController@bringitems'); // TODO
 
-Route::get('/listofstores', 'QoimaController@listofstores');
-Route::get('/getinfoqoima', 'QoimaController@getinfoqoima');
+Route::post('/listofstores', 'QoimaController@listofstores'); // TODO
+Route::post('/getinfoqoima', 'QoimaController@getinfoqoima'); // TODO
 
 
 

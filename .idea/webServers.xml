@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="03e53844-88bd-4f0e-97fe-e37e8ef699e7" name="195.210.46.64" url="http://195.210.46.64">
+        <fileTransfer host="195.210.46.64" port="21" rootFolder="/laravel.memento-mori.site">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -58,13 +58,17 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
         if ($user) {
             if ($user->password == $password) {
-                $result = [
-                    'success' => true,
-                    'message' => 'Correct authentication',
-                ];
                 $user->unique = md5(uniqid(rand(), true));
 
                 $user->save();
+
+                $result = [
+                    'success' => true,
+                    'message' => 'Correct authentication',
+                    'unique' => $user->unique,
+                    'user' => $user
+                ];
+
             } else {
                 $result['message'] = 'Incorrect password';
             }
@@ -74,5 +78,127 @@ class UserController extends Controller
 
 
         return $result;
+    }
+
+    public function userinfo(Request $request)
+    {
+        $result = [
+            'success' => false,
+        ];
+
+        $user_id = $request->input('user_id');
+        $unique = $request->input('unique');
+
+        $user = User::where('id', $user_id)
+            ->where('unique', $unique)
+            ->first();
+
+        if ($user) {
+            $result['user'] = $user;
+            $result['success'] = true;
+        } else {
+            $result['message'] = 'ERROR 505';
+        }
+
+        return response()->json($result);
+    }
+
+    public function updateuser(Request $request)
+    {
+        $result['success'] = false;
+
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $surname = $request->input('surname');
+        $description = $request->input('description');
+        $unic = $request->input('unique');
+
+        do {
+            if (!$id || !$name || !$surname || !$description || !$unic) {
+                $result['message'] = 'ERROR INPUT';
+
+                break;
+            }
+
+            $user = User::find($id);
+
+            if (!$user) {
+                $result['message'] = "USER NOT FOUND";
+
+                break;
+            }
+
+            if ($user->unique != $unic) {
+                $result['message'] = "NOT CORRECT UNIC";
+
+                break;
+            }
+
+            $user->name = $name;
+            $user->surname = $surname;
+            $user->description = $description;
+
+            $user->save();
+
+            $result['success'] = true;
+            $result['message'] = 'User updated.';
+
+        } while (false);
+
+        return response()->json($result);
+    }
+
+    public function changepassword(Request $request)
+    {
+        $result['success'] = false;
+        $id = $request->input('id');
+        $old_password = $request->input('old_password');
+        $new_password = $request->input('new_password');
+        $unic = $request->input('unique');
+
+        do {
+            if (!$id || !$old_password || !$new_password || !$unic) {
+                $result['message'] = "INPUT ERROR";
+
+                break;
+            }
+
+            $user = User::find($id);
+
+            if (!$user) {
+                $result['message'] = "USER NOT FOUND";
+
+                break;
+            }
+
+            if ($user->password != $old_password) {
+                $result['message'] = "PASSWORD IS INCORRECT";
+
+                break;
+            }
+            if ($user->unique != $unic) {
+                $result['message'] = "NOT CORRECT UNIC";
+
+                break;
+            }
+
+            if ($old_password == $new_password) {
+                $result['message'] = "PASSWORDS EQUAL";
+
+                break;
+            }
+
+            $user->password = $new_password;
+            $user->save();
+
+            $result['success'] = true;
+            $result['message'] = "SUCCESS";
+        } while (false);
+
+        return response()->json($result);
+    }
+
+    public function changeaddress(Request $request) {
+
     }
 }
