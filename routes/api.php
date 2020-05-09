@@ -25,15 +25,22 @@ Route::post('/updateuser', 'UserController@updateuser'); // TODO  done
 Route::post('/changepassword', 'UserController@changepassword'); // TODO done
 Route::post('/changeaddress', 'UserController@changeaddress'); // TODO
 
+Route::post('/additem', 'ItemController@additem');
 Route::post('/listofitems', 'ItemController@listofitems'); // TODO done
-Route::post('/bringitems', 'ItemController@bringitems'); // TODO
+Route::post('/bringitems', 'ItemController@bringitems'); // TODO done
 
-Route::post('/listofstores', 'QoimaController@listofstores'); // TODO
-Route::post('/getinfoqoima', 'QoimaController@getinfoqoima'); // TODO
+Route::post('/listofstores', 'QoimaController@listofstores'); // TODO done
+Route::post('/getinfoqoima', 'QoimaController@getinfoqoima'); // TODO done
 
-
-
-
+Route::get('image/{filename}', 'ImageController@displayImage')->name('image.displayImage');
 
 
 
+Route::post('/admin/signin', 'AdminController@signin');
+Route::get('/admin/get/me', 'AdminController@getMe');
+Route::post('/admin/get/listofitems', 'AdminController@listofitems');
+Route::post('/admin/get/item', 'AdminController@item');
+Route::post('/admin/update/item', 'AdminController@updateitem');
+Route::post('/admin/delete/item', 'AdminController@deleteitem');
+Route::get('/admin/total/sum', 'AdminController@totalsum');
+Route::post('/admin/change/name', 'AdminController@changename');

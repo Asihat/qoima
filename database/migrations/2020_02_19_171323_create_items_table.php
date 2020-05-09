@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('description');
             $table->integer('user_id');
             $table->integer('qoima_id');
-            $table->integer('status');
+            $table->integer('status')->comment('0 = error, 1 = in qoima, 2 = in the way to qoima, 3 = in the way to home to get');
 
             $table->timestamps();
         });

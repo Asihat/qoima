@@ -3,11 +3,103 @@
 namespace App\Http\Controllers;
 
 use App\Items;
+use App\ItemsPhoto;
 use App\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ItemController extends Controller
 {
+    public function additem(Request $request) {
+        Log::info('something happends here');
+        $result['success'] = false;
+        $id = $request->input('id');
+        $unic = $request->input('unique');
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $qoimaID = $request->input('qoima_id');
+
+        info("one");
+        if($request->file('photo')) {
+            info('error1');
+            $path = $request->file('photo')->store('images', ['disk' => 'public']);
+        } else {
+            $path = null;
+            info('error2');
+        }
+
+        info("two");
+        while(true) {
+            info('while loop');
+            if(!$id) {
+                $result['message'] = 'id required';
+
+                break;
+            }
+
+            if(!$unic) {
+                $result['message'] = 'Unique required';
+
+                break;
+            }
+
+            if(!$name) {
+                $result['message'] = 'Name required';
+
+                break;
+            }
+
+            if(!$description) {
+                $result['message'] = 'Description required';
+
+                break;
+            }
+
+            if(!$qoimaID) {
+                $result['message'] = 'Qoima ID required';
+
+                break;
+            }
+
+            if($path === null) {
+                $result['message'] = 'Photo file required';
+
+                break;
+            }
+
+            // Create Item
+            $item = new Items;
+
+            $item->name = $name;
+            $item->description = $description;
+            $item->user_id = $id;
+            $item->qoima_id = $qoimaID;
+            $item->status = 3;
+
+            $item->save();
+
+            // Create item_photo
+            $item_photo = new ItemsPhoto;
+
+            $item_photo->itemID = $item->id;
+            $item_photo->photoOne = $path;
+            $item_photo->photoTwo = $path;
+            $item_photo->photoThree = $path;
+            $item_photo->photoFour = $path;
+
+            $item->photo = $item_photo;
+
+            $item_photo->save();
+
+            $result['item'] = $item;
+            $result['success'] = true;
+            break;
+        }
+
+        info($result);
+        return $result;
+    }
+
     public function listofitems(Request $request)
     {
         $result['success'] = false;
@@ -43,6 +135,17 @@ class ItemController extends Controller
                 $result['message'] = "ITEMS NOT FOUND";
 
                 break;
+            }
+
+            foreach($items as $item) {
+                $item_photo = ItemsPhoto::find($item->id);
+
+                if(!$item_photo) {
+                    $item['photo'] = 'nophoto.png';
+
+                    continue;
+                }
+                $item['photo'] = $item_photo->photoOne;
             }
 
             $result['items'] = $items;
@@ -94,14 +197,16 @@ class ItemController extends Controller
             }
 
             $item = Items::find($itemsID);
-            $item->status = 3;
-            $item->save();
-            $result['success'] = true;
+
             if (!$item) {
                 $result['message'] = 'Item not found';
 
                 break;
             }
+
+            $item->status = 3;
+            $item->save();
+            $result['success'] = true;
 
             $result['item'] = $item;
         } while (false);

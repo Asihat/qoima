@@ -18,7 +18,7 @@ class UserController extends Controller
         $email = $request->input('email');
         $description = $request->input('description');
         $password = $request->input('password');
-        $account = 10000;
+        $account = rand(100, 1000000);
 
         $user = User::where('email', $email)->first();
         if ($user) {
