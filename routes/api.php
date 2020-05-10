@@ -27,8 +27,10 @@ Route::post('/changeaddress', 'UserController@changeaddress'); // TODO
 
 Route::post('/additem', 'ItemController@additem');
 Route::post('/listofitems', 'ItemController@listofitems'); // TODO done
+Route::post('/getiteminfo', 'ItemController@getiteminfo'); // TODO
 Route::post('/bringitems', 'ItemController@bringitems'); // TODO done
-
+Route::post('/planitem', 'ItemController@planitem'); // TODO
+Route::post('/deliveritem', 'ItemController@deliveritem'); // TODO
 Route::post('/listofstores', 'QoimaController@listofstores'); // TODO done
 Route::post('/getinfoqoima', 'QoimaController@getinfoqoima'); // TODO done
 

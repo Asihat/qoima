@@ -9,6 +9,7 @@ class UserController extends Controller
 {
     public function register(Request $request)
     {
+        info('register user');
         $result = [
             'success' => false,
         ];
@@ -16,9 +17,11 @@ class UserController extends Controller
         $name = $request->input('name');
         $surname = $request->input('surname');
         $email = $request->input('email');
-        $description = $request->input('description');
+        $phoneNo = $request->input('phoneNo');
         $password = $request->input('password');
-        $account = rand(100, 1000000);
+
+        $allUsers = User::all();
+        $account = count($allUsers) + 100000;
 
         $user = User::where('email', $email)->first();
         if ($user) {
@@ -31,7 +34,7 @@ class UserController extends Controller
             $newUser->name = $name;
             $newUser->surname = $surname;
             $newUser->email = $email;
-            $newUser->description = $description;
+            $newUser->phoneNo = $phoneNo;
             $newUser->password = $password;
             $newUser->account = $account;
 
@@ -111,6 +114,7 @@ class UserController extends Controller
         $name = $request->input('name');
         $surname = $request->input('surname');
         $description = $request->input('description');
+
         $unic = $request->input('unique');
 
         do {
@@ -198,7 +202,30 @@ class UserController extends Controller
         return response()->json($result);
     }
 
-    public function changeaddress(Request $request) {
+    public function changeaddress(Request $request)
+    {
+        $result['success'] = false;
 
+        $id = $request->input('id');
+        $unic = $request->input('unique');
+        $newaddress = $request->input('new_address');
+
+        do {
+            if (!$id || !$newaddress || !$unic) {
+                $result['message'] = 'ERROR INPUT';
+
+                break;
+            }
+
+            $user = User::where('id', $id)->where('unique', $unic) ->first();
+
+            $user->address = $newaddress;
+
+            $user->save();
+
+            $result['success'] = true;
+        } while (false);
+
+        return response()->json($result);
     }
 }

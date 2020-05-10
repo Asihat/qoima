@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Items;
 use App\ItemsPhoto;
+use App\User;
 use App\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class ItemController extends Controller
 {
-    public function additem(Request $request) {
+    public function additem(Request $request)
+    {
         Log::info('something happends here');
         $result['success'] = false;
         $id = $request->input('id');
@@ -18,9 +20,17 @@ class ItemController extends Controller
         $name = $request->input('name');
         $description = $request->input('description');
         $qoimaID = $request->input('qoima_id');
+        $length = $request->input('length');
+        $width = $request->input('width');
+        $height = $request->input('height');
+        $amount = $request->input('amount');
+        $price = $request->input('sum');
+
+        info('price');
+        info($price);
 
         info("one");
-        if($request->file('photo')) {
+        if ($request->file('photo')) {
             info('error1');
             $path = $request->file('photo')->store('images', ['disk' => 'public']);
         } else {
@@ -29,39 +39,39 @@ class ItemController extends Controller
         }
 
         info("two");
-        while(true) {
+        while (true) {
             info('while loop');
-            if(!$id) {
+            if (!$id) {
                 $result['message'] = 'id required';
 
                 break;
             }
 
-            if(!$unic) {
+            if (!$unic) {
                 $result['message'] = 'Unique required';
 
                 break;
             }
 
-            if(!$name) {
+            if (!$name) {
                 $result['message'] = 'Name required';
 
                 break;
             }
 
-            if(!$description) {
+            if (!$description) {
                 $result['message'] = 'Description required';
 
                 break;
             }
 
-            if(!$qoimaID) {
+            if (!$qoimaID) {
                 $result['message'] = 'Qoima ID required';
 
                 break;
             }
 
-            if($path === null) {
+            if ($path === null) {
                 $result['message'] = 'Photo file required';
 
                 break;
@@ -74,7 +84,13 @@ class ItemController extends Controller
             $item->description = $description;
             $item->user_id = $id;
             $item->qoima_id = $qoimaID;
-            $item->status = 3;
+            $item->status = 0;
+            $item->length = $length;
+            $item->width = $width;
+            $item->height = $height;
+            $item->amount = $amount;
+            $item->price = $price;
+
 
             $item->save();
 
@@ -137,10 +153,10 @@ class ItemController extends Controller
                 break;
             }
 
-            foreach($items as $item) {
+            foreach ($items as $item) {
                 $item_photo = ItemsPhoto::find($item->id);
 
-                if(!$item_photo) {
+                if (!$item_photo) {
                     $item['photo'] = 'nophoto.png';
 
                     continue;
@@ -213,4 +229,180 @@ class ItemController extends Controller
 
         return response()->json($result);
     }
+
+    public function getiteminfo(Request $request)
+    {
+        $result['success'] = false;
+
+        $id = $request->input('id');
+        $unic = $request->input('unique');
+        $itemID = $request->input('item_id');
+
+        do {
+            if (!$id) {
+                $result['message'] = 'NO ID';
+
+                break;
+            }
+
+            if (!$unic) {
+                $result['message'] = 'No unic';
+
+                break;
+            }
+
+            if (!$itemID) {
+                $result['message'] = 'No Item ID';
+
+                break;
+            }
+
+            $user = User::where('id', $id)->where('unique', $unic)->first();
+
+            if (!$user) {
+                $result['message'] = 'error1';
+
+                break;
+            }
+
+            $item = Items::where('id', $itemID)->where('user_id', $id)->first();
+
+            if (!$item) {
+                $result['message'] = 'error2';
+
+                break;
+            }
+
+            $item_photo = ItemsPhoto::where('itemID', $itemID)->first();
+
+            if (!$item_photo) {
+                $item['photo'] = 'nophoto.png';
+            } else {
+                $item['photo'] = $item_photo->photoOne;
+            }
+
+            $result['item'] = $item;
+
+            $result['success'] = true;
+        } while (false);
+
+
+        return response()->json($result);
+    }
+
+    public function planitem(Request $request)
+    {
+        $result['success'] = false;
+
+        $id = $request->input('id');
+        $unic = $request->input('unique');
+        $itemID = $request->input('item_id');
+        $planned_data = $request->input('planned_data'); // TODO NOTIFICATION
+
+        do {
+            if (!$id) {
+                $result['message'] = 'NO ID';
+
+                break;
+            }
+
+            if (!$unic) {
+                $result['message'] = 'No unic';
+
+                break;
+            }
+
+            if (!$itemID) {
+                $result['message'] = 'No Item ID';
+
+                break;
+            }
+
+            $user = User::where('id', $id)->where('unique', $unic)->first();
+
+            if (!$user) {
+                $result['message'] = 'error1';
+
+                break;
+            }
+
+            $item = Items::where('id', $itemID)->where('user_id', $id)->where('status', 0)->first();
+
+            if (!$item) {
+                $result['message'] = 'error2';
+
+                break;
+            }
+
+            info('update item');
+            Items::where('id', $itemID)->where('user_id', $id)->update(['status'=> 1]);
+
+            $item->status = 1;
+
+            $result['item'] = $item;
+
+            $result['success'] = true;
+        } while (false);
+
+
+        return response()->json($result);
+    }
+
+    public function deliveritem(Request $request) {
+        $result['success'] = false;
+
+        $id = $request->input('id');
+        $unic = $request->input('unique');
+        $itemID = $request->input('item_id');
+        $planned_data = $request->input('planned_data'); // TODO NOTIFICATION
+
+        do {
+            if (!$id) {
+                $result['message'] = 'NO ID';
+
+                break;
+            }
+
+            if (!$unic) {
+                $result['message'] = 'No unic';
+
+                break;
+            }
+
+            if (!$itemID) {
+                $result['message'] = 'No Item ID';
+
+                break;
+            }
+
+            $user = User::where('id', $id)->where('unique', $unic)->first();
+
+            if (!$user) {
+                $result['message'] = 'error1';
+
+                break;
+            }
+
+            $item = Items::where('id', $itemID)->where('user_id', $id)->first();
+
+            if (!$item) {
+                $result['message'] = 'error2';
+
+                break;
+            }
+
+            info('update item');
+            Items::where('id', $itemID)->where('user_id', $id)->update(['status'=> 3]);
+
+            $item->status = 3;
+
+            $result['item'] = $item;
+
+            $result['success'] = true;
+        } while (false);
+
+
+        return response()->json($result);
+    }
+
 }

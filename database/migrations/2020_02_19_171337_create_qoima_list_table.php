@@ -18,9 +18,11 @@ class CreateQoimaListTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('address');
+            $table->string('map_address');
+            $table->string('url_address');
+            $table->string('working_time');
             $table->string('phone');
             $table->string('email');
-            
             $table->timestamps();
         });
     }
