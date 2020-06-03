@@ -37,12 +37,13 @@ class UserController extends Controller
             $newUser->phoneNo = $phoneNo;
             $newUser->password = $password;
             $newUser->account = $account;
-
+            $newUser->unique = md5(uniqid(rand(), true));
             $newUser->save();
 
             $result = [
                 'success' => true,
                 'message' => 'success',
+                'user' => $newUser,
             ];
         }
 
@@ -140,7 +141,6 @@ class UserController extends Controller
 
             $user->name = $name;
             $user->surname = $surname;
-            $user->description = $description;
 
             $user->save();
 

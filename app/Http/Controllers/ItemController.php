@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
+use App\ItemCategories;
 use App\Items;
 use App\ItemsPhoto;
 use App\User;
@@ -19,12 +21,12 @@ class ItemController extends Controller
         $unic = $request->input('unique');
         $name = $request->input('name');
         $description = $request->input('description');
-        $qoimaID = $request->input('qoima_id');
         $length = $request->input('length');
         $width = $request->input('width');
         $height = $request->input('height');
         $amount = $request->input('amount');
         $price = $request->input('sum');
+        $categoryID = $request->input('categoryID');
 
         info('price');
         info($price);
@@ -47,6 +49,12 @@ class ItemController extends Controller
                 break;
             }
 
+            if(!$categoryID) {
+                $result['message'] = 'categoryID required';
+
+                break;
+            }
+
             if (!$unic) {
                 $result['message'] = 'Unique required';
 
@@ -65,11 +73,6 @@ class ItemController extends Controller
                 break;
             }
 
-            if (!$qoimaID) {
-                $result['message'] = 'Qoima ID required';
-
-                break;
-            }
 
             if ($path === null) {
                 $result['message'] = 'Photo file required';
@@ -83,7 +86,7 @@ class ItemController extends Controller
             $item->name = $name;
             $item->description = $description;
             $item->user_id = $id;
-            $item->qoima_id = $qoimaID;
+            $item->qoima_id = 1;
             $item->status = 0;
             $item->length = $length;
             $item->width = $width;
@@ -107,6 +110,11 @@ class ItemController extends Controller
 
             $item_photo->save();
 
+            $item_category = new ItemCategories();
+            $item_category->categoryID = $categoryID;
+            $item_category->itemID = $item->id;
+            $item_category->save();
+
             $result['item'] = $item;
             $result['success'] = true;
             break;
@@ -118,6 +126,7 @@ class ItemController extends Controller
 
     public function listofitems(Request $request)
     {
+
         $result['success'] = false;
         $id = $request->input('id');
         $unic = $request->input('unique');
@@ -154,7 +163,7 @@ class ItemController extends Controller
             }
 
             foreach ($items as $item) {
-                $item_photo = ItemsPhoto::find($item->id);
+                $item_photo = ItemsPhoto::where('itemID', $item->id)->first();
 
                 if (!$item_photo) {
                     $item['photo'] = 'nophoto.png';
@@ -335,7 +344,7 @@ class ItemController extends Controller
             }
 
             info('update item');
-            Items::where('id', $itemID)->where('user_id', $id)->update(['status'=> 1]);
+            Items::where('id', $itemID)->where('user_id', $id)->update(['status' => 1]);
 
             $item->status = 1;
 
@@ -348,7 +357,8 @@ class ItemController extends Controller
         return response()->json($result);
     }
 
-    public function deliveritem(Request $request) {
+    public function deliveritem(Request $request)
+    {
         $result['success'] = false;
 
         $id = $request->input('id');
@@ -392,7 +402,7 @@ class ItemController extends Controller
             }
 
             info('update item');
-            Items::where('id', $itemID)->where('user_id', $id)->update(['status'=> 3]);
+            Items::where('id', $itemID)->where('user_id', $id)->update(['status' => 3]);
 
             $item->status = 3;
 
@@ -405,4 +415,11 @@ class ItemController extends Controller
         return response()->json($result);
     }
 
+    public function listofcategories(Request $request)
+    {
+        $categories = Categories::all();
+
+
+        return response()->json($categories);
+    }
 }
