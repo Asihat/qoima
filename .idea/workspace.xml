@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4698c8e-d042-4987-81d9-343160211aa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/CORSMiddleware.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QoimaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/QoimaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,6 +241,8 @@
       <workItem from="1590838971121" duration="4097000" />
       <workItem from="1590937158825" duration="2877000" />
       <workItem from="1590981261255" duration="2028000" />
+      <workItem from="1591186075784" duration="45000" />
+      <workItem from="1591207772972" duration="6000" />
     </task>
     <servers />
   </component>
@@ -259,7 +253,6 @@
     <state x="580" y="130" width="800" height="684" key="#Deployment" timestamp="1586093010338">
       <screen x="0" y="27" width="1920" height="1001" />
     </state>
-    <state x="361" y="74" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1583246774823" />
     <state x="580" y="130" key="#Deployment/0.27.1920.1001@0.27.1920.1001" timestamp="1586093010338" />
     <state x="580" y="135" width="800" height="684" key="#Deployment/0.27.1920.1053@0.27.1920.1053" timestamp="1586084348410" />
     <state x="693" y="285" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1588501448880">
@@ -302,42 +295,33 @@
       <screen x="0" y="27" width="1920" height="1001" />
     </state>
     <state x="349" y="97" width="1022" height="737" key="SettingsEditor/0.27.1920.1001@0.27.1920.1001" timestamp="1588575981131" />
-    <state x="490" y="154" width="540" height="524" key="StructurePopup" timestamp="1582652766508">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="490" y="154" width="540" height="524" key="StructurePopup/0.0.1536.824@0.0.1536.824" timestamp="1582652766508" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1584611135432">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1536.824@0.0.1536.824" timestamp="1584611135432" />
-    <state x="603" y="362" width="911" height="489" key="com.intellij.ide.util.TipDialog" timestamp="1590982213101">
+    <state x="616" y="354" width="911" height="489" key="com.intellij.ide.util.TipDialog" timestamp="1592112783239">
       <screen x="0" y="27" width="1920" height="999" />
     </state>
     <state x="448" y="182" width="911" height="489" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585625744343" />
     <state x="603" y="363" key="com.intellij.ide.util.TipDialog/0.27.1920.1001@0.27.1920.1001" timestamp="1589015735479" />
     <state x="560" y="260" key="com.intellij.ide.util.TipDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1586081860293" />
-    <state x="603" y="362" key="com.intellij.ide.util.TipDialog/0.27.1920.999@0.27.1920.999" timestamp="1590982213101" />
+    <state x="616" y="354" key="com.intellij.ide.util.TipDialog/0.27.1920.999@0.27.1920.999" timestamp="1592112783239" />
     <state x="605" y="137" width="709" height="779" key="find.popup" timestamp="1589177392829">
       <screen x="0" y="27" width="1920" height="999" />
     </state>
     <state x="605" y="137" width="709" height="780" key="find.popup/0.27.1920.1001@0.27.1920.1001" timestamp="1588844723000" />
     <state x="605" y="137" width="709" height="779" key="find.popup/0.27.1920.999@0.27.1920.999" timestamp="1589177392829" />
-    <state x="587" y="149" key="ftp.server.browser" timestamp="1583246756892">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="587" y="149" key="ftp.server.browser/0.0.1536.824@0.0.1536.824" timestamp="1583246756892" />
     <state x="531" y="254" key="run.anything.popup" timestamp="1590831928711">
       <screen x="0" y="27" width="1920" height="999" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1582349468761" />
     <state x="531" y="254" key="run.anything.popup/0.27.1920.1001@0.27.1920.1001" timestamp="1588625052473" />
     <state x="531" y="254" key="run.anything.popup/0.27.1920.999@0.27.1920.999" timestamp="1590831928711" />
-    <state x="539" y="203" width="840" height="823" key="search.everywhere.popup" timestamp="1590985621219">
+    <state x="539" y="203" width="840" height="823" key="search.everywhere.popup" timestamp="1591186086306">
       <screen x="0" y="27" width="1920" height="999" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585629830355" />
     <state x="539" y="203" width="840" height="824" key="search.everywhere.popup/0.27.1920.1001@0.27.1920.1001" timestamp="1588924848052" />
-    <state x="539" y="203" width="840" height="823" key="search.everywhere.popup/0.27.1920.999@0.27.1920.999" timestamp="1590985621219" />
+    <state x="539" y="203" width="840" height="823" key="search.everywhere.popup/0.27.1920.999@0.27.1920.999" timestamp="1591186086306" />
     <state x="685" y="467" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1586081844951">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
